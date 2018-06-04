@@ -1,0 +1,4 @@
+=== 0.5
+
+. First release, compatible with Rest Client 1.0
+. Implementation using Java 7, compatible with Java SE and Java EE.

@@ -1,0 +1,13 @@
+= Atbash MicroProfile rest client
+Rudy De Busscher <rdebusscher@gmail.com>
+v0.5, ??/??/2018
+
+== Release notes
+
+include::release.adi[]
+
+== Usage
+
+include::javaee.adi[]
+
+include::javase.adi[]

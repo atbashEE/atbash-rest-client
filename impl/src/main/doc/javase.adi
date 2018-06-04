@@ -1,0 +1,78 @@
+=== Java SE environment
+
+Atbash MP Rest client can also be used in a Java SE 7 (or 8) environment with a JAX-RS client available.
+
+==== Project setup
+
+Add the following artefacts to the maven project file to have the Atbash Rest Client functionality
+
+        <dependency>
+            <groupId>be.atbash.mp.rest-client</groupId>
+            <artifactId>atbash-rest-client-impl</artifactId>
+            <version>0.5</version>
+        </dependency>
+
+        <!-- need a JAX-RS client -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <!-- Latest JAX-RS 2.0 version -->
+            <version>2.25.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.22</version>
+        </dependency>
+
+        <dependency>
+            <groupId>be.atbash.config</groupId>
+            <artifactId>geronimo-config</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-partial-bean-module-impl</artifactId>
+            <version>${deltaspike.version}</version>
+        </dependency>
+
+These dependencies are required because
+
+. jersey-client, because we need a JAX-RS client since the MicroProfile Rest Client is build on top of that.
+. geronimo-config, because the Atbash implementation uses config for CDI implementation (TODO this requirement needs to be removed in next version in Java SE usage !!)
+. deltaspike is used for the proxy functionality. Dependency is set to provided so that developer can specify the version they like
+
+Warning
+
+Deltaspike 1.8.1 is required as a minimum due to the usage of for example DeltaSpikeProxyInvocationHandler.
+
+
+==== Calling endpoint
+
+Define the interface which describes the remote endpoint
+
+    @Path("/other")
+    public interface OtherService {
+
+        @Path("json/{parameter}")
+        @GET
+        Data sayHello(@PathParam("parameter") String parameter);
+
+    }
+
+Just define the interface and the methods you like. No special annotations required.  Rest client capable of calling remote endpoint can be retrieved programmatically.
+
+        public void doSomething() {
+           OtherService otherService = AbstractRestClientBuilder.newBuilder()
+                .baseUrl(new URL("http://localhost:8080/server/data"))
+                .build(OtherService.class);
+           Data data = otherService.sayHello("Rudy")
+        }
+
+=== Rest client configuration
+
+See Java EE use case for defining the file with the configuration values. But it can be empty as it is not used within Java SE.
+
+In a future version, this requirement will be removed.

@@ -1,0 +1,88 @@
+=== Java EE environment
+
+Atbash MP Rest client can be used in any Java EE 7 or Java EE 8 certified application server.
+
+==== Project setup
+
+Add the following artefacts to the maven project file to have the Atbash Rest Client functionality
+
+        <dependency>
+            <groupId>be.atbash.mp.rest-client</groupId>
+            <artifactId>atbash-rest-client-impl</artifactId>
+            <version>0.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>be.atbash.config</groupId>
+            <artifactId>geronimo-config</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-partial-bean-module-impl</artifactId>
+            <version>${deltaspike.version}</version>
+        </dependency>
+
+These dependencies are required because
+
+. geronimo-config, MP Config is used to read the endpoint URL (see further on) and you can choose which MP config compliant implementation you like.
+. deltaspike is used for the proxy functionality. Dependency is set to provided so that developer can specify the version they like
+
+Warning
+
+Deltaspike 1.8.1 is required as a minimum due to the usage of for example DeltaSpikeProxyInvocationHandler.
+
+
+==== Calling endpoint
+
+Define the interface which describes the remote endpoint
+
+    @Path("/other")
+    @RegisterRestClient
+    @ApplicationScoped
+    public interface OtherService {
+
+        @Path("json/{parameter}")
+        @GET
+        Data sayHello(@PathParam("parameter") String parameter);
+
+    }
+
+By specifying the _@RegisterRestClient_ annotation, a CDI bean is created that can be injected and used to call the remote endpoint.
+
+    @ApplicationScoped
+    public class SomeService {
+
+        @Inject
+        @RestClient
+        private OtherService otherService;
+
+
+        public void doSomething() {
+           Data data = otherService.sayHello("Rudy")
+        }
+    }
+
+=== Rest client configuration
+
+The most important part which is missing in the above construct, is the definition of the URL where the endpoint can be found.
+
+By using atbash config, the property file (even YAML is supported) can be defined by the developer.
+
+
+    public class ClientBaseName implements BaseConfigurationName {
+        @Override
+        public String getBase() {
+            return "client";
+        }
+    }
+
+And define this class for using the ServiceLoader mechanism (contents of file _src/main/resources/META-INF/services/be.atbash.config.spi.BaseConfigurationName_
+
+    be.atbash.mp.rest_client.demo.client.config.ClientBaseName
+
+
+The URL value is then retrieved from the file _client.properties_ (define within maven _src/main/resources_ folder.
+
+    be.atbash.mp.rest_client.demo.client.OtherService/mp-rest/url=http://localhost:8080/server/data
