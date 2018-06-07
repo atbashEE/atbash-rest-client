@@ -32,6 +32,7 @@ public class CallEndpoint {
                 .build(HelloService.class);
 
         System.out.println(helloService.sayHello());
+        System.out.println(helloService.sayHello());  // Test connection closing
 
         OtherService otherService = AbstractRestClientBuilder.newBuilder()
                 .baseUrl(new URL("http://localhost:8080/server/data"))

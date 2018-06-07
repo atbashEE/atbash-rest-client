@@ -75,15 +75,21 @@ public class RestClientInvoker implements InvocationHandler {
             invocation = request.build(httpMethod);
         }
 
+        Object result = null;
         Response response = invocation.invoke();
+        try {
 
-        handleExceptionMapping(response, Arrays.asList(method.getExceptionTypes()));
+            handleExceptionMapping(response, Arrays.asList(method.getExceptionTypes()));
 
-        if (void.class.equals(method.getReturnType())) {
-            return null;
-        } else {
-            return response.readEntity(method.getReturnType());
+            if (!void.class.equals(method.getReturnType())) {
+                result = response.readEntity(method.getReturnType());
+            }
+        } finally {
+            if (response != null) {
+                response.close();
+            }
         }
+        return result;
     }
 
     private void handleExceptionMapping(Response response, List<Class<?>> exceptionTypes) throws Throwable {

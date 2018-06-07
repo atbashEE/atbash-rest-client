@@ -50,6 +50,7 @@ public class RestServlet extends HttpServlet {
         StringBuilder result = new StringBuilder();
 
         result.append("helloService ").append(helloService.sayHello()).append("\n");
+        result.append("helloService ").append(helloService.sayHello()).append("\n");  // test connection closing
         result.append("otherService ").append(otherService.doSomething("param")).append("\n");
 
         OtherService.Data data = otherService.sayHello("Rudy");
