@@ -183,7 +183,11 @@ public class RestClientInvoker implements InvocationHandler {
 
         Path methodPathAnnotation = method.getAnnotation(Path.class);
         if (methodPathAnnotation != null) {
-            serverURL.append('/').append(methodPathAnnotation.value());
+            String value = methodPathAnnotation.value();
+            if (!value.startsWith("/")) {
+                serverURL.append('/');
+            }
+            serverURL.append(value);
         }
         return serverURL;
     }
