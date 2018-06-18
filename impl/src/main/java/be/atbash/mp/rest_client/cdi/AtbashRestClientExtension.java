@@ -38,17 +38,8 @@ public class AtbashRestClientExtension implements Extension {
      * @param beanManager
      * @param <T>
      */
-    public <T> void processAnnotatedType(@Observes ProcessAnnotatedType<T> pat, BeanManager beanManager) {
+    public <T> void processAnnotatedType(@Observes @WithAnnotations({RegisterRestClient.class}) ProcessAnnotatedType<T> pat, BeanManager beanManager) {
 
-        RegisterRestClient registerRestClient = pat.getAnnotatedType().getJavaClass().getAnnotation(RegisterRestClient.class);
-        // TODO Is there a check that RegisterRestClient annotated classes are interfaces (be.atbash.mp.rest_client.spec.BuilderImpl.verifyInterface just checks requirements on methods)
-        if (registerRestClient != null) {
-            createCDIBean(pat, beanManager);
-        }
-
-    }
-
-    private <T> void createCDIBean(ProcessAnnotatedType<T> pat, BeanManager beanManager) {
         Class<T> javaClass = pat.getAnnotatedType().getJavaClass();
 
         // Create Lifecycle for CDI bean, based
