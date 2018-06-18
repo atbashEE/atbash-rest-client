@@ -1,6 +1,6 @@
 = Atbash MicroProfile rest client
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.5, ??/??/2018
+v0.5, 18/06/2018
 
 == Release notes
 

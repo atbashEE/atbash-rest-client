@@ -60,7 +60,7 @@ By specifying the _@RegisterRestClient_ annotation, a CDI bean is created that c
 
 
         public void doSomething() {
-           Data data = otherService.sayHello("Rudy")
+           Data data = otherService.sayHello("Rudy");
         }
     }
 
