@@ -23,7 +23,7 @@
     <parent>
         <groupId>be.atbash.mp.rest-client</groupId>
         <artifactId>rest-client-parent</artifactId>
-        <version>0.5</version>
+        <version>0.5.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
