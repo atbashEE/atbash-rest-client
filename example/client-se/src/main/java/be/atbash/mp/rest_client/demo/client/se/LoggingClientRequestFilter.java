@@ -15,16 +15,17 @@
  */
 package be.atbash.mp.rest_client.demo.client.se;
 
-import be.atbash.config.spi.BaseConfigurationName;
+import javax.ws.rs.client.ClientRequestContext;
+import javax.ws.rs.client.ClientRequestFilter;
+import java.io.IOException;
 
-/**
- *
- */
-// FIXME No longer needed with 0.9.2
-public class DemoBaseName implements BaseConfigurationName {
+public class LoggingClientRequestFilter implements ClientRequestFilter {
+
 
     @Override
-    public String getBase() {
-        return "demo";
+    public void filter(ClientRequestContext clientRequestContext) throws IOException {
+        System.out.println("LoggingClientRequestFilter " + clientRequestContext.getUri());
     }
+
+
 }

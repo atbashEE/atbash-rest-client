@@ -1,3 +1,7 @@
+=== 0.5.1
+
+. Included _RestClientBuilderListener_ from MP Rest Client 1.1 (to be able to define providers globally)
+
 === 0.5
 
 . First release, compatible with Rest Client 1.0

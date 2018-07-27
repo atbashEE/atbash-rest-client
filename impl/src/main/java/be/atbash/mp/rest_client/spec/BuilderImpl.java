@@ -29,6 +29,7 @@ import org.apache.deltaspike.core.util.ExceptionUtils;
 import org.apache.deltaspike.proxy.spi.DeltaSpikeProxy;
 import org.apache.deltaspike.proxy.spi.invocation.DeltaSpikeProxyInvocationHandler;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.rest.client.AbstractRestClientBuilder;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.eclipse.microprofile.rest.client.RestClientDefinitionException;
 import org.eclipse.microprofile.rest.client.ext.ResponseExceptionMapper;
@@ -55,7 +56,7 @@ import java.util.regex.Pattern;
  * Implementation of the MicroProfile {@code RestClientBuilder} API class.
  */
 // Based on the WildFly swarm version
-class BuilderImpl implements RestClientBuilder {
+class BuilderImpl extends AbstractRestClientBuilder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BuilderImpl.class);
 

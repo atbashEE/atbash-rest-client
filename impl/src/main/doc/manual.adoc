@@ -1,6 +1,6 @@
 = Atbash MicroProfile rest client
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.5, 18/06/2018
+v0.5.1, ??/??/2018
 
 == Release notes
 
@@ -11,3 +11,11 @@ include::release.adi[]
 include::javaee.adi[]
 
 include::javase.adi[]
+
+=== Global provider
+
+With the help of the interface *org.eclipse.microprofile.rest.client.spi.RestClientBuilderListener*, we can specify the providers which are applied to all generated rest clients.
+
+Define the implementing class through ServiceLoader configuration, and by implementing the method _onNewBuilder_ have have the change of adding providers to the Rest client in a global way.
+
+You no longer need to add the provider to each individual interface with the use of the @RegisterProvider annotation.

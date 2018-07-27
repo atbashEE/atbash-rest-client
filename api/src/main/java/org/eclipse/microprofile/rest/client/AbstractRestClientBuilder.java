@@ -15,10 +15,26 @@
  */
 package org.eclipse.microprofile.rest.client;
 
+import org.eclipse.microprofile.rest.client.spi.RestClientBuilderListener;
 import org.eclipse.microprofile.rest.client.spi.RestClientBuilderResolver;
+
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.ServiceLoader;
 
 public abstract class AbstractRestClientBuilder implements RestClientBuilder {
     public static RestClientBuilder newBuilder() {
-        return RestClientBuilderResolver.instance().newBuilder();
+        final RestClientBuilder builder = RestClientBuilderResolver.instance().newBuilder();
+        AccessController.doPrivileged(new PrivilegedAction<Void>() {
+                                          @Override
+                                          public Void run() {
+                                              for (RestClientBuilderListener listener : ServiceLoader.load(RestClientBuilderListener.class)) {
+                                                  listener.onNewBuilder(builder);
+                                              }
+                                              return null;
+                                          }
+                                      }
+        );
+        return builder;
     }
 }

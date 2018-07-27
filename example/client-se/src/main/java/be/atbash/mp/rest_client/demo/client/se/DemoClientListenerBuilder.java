@@ -15,16 +15,17 @@
  */
 package be.atbash.mp.rest_client.demo.client.se;
 
-import be.atbash.config.spi.BaseConfigurationName;
+import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.eclipse.microprofile.rest.client.spi.RestClientBuilderListener;
 
 /**
  *
  */
-// FIXME No longer needed with 0.9.2
-public class DemoBaseName implements BaseConfigurationName {
+
+public class DemoClientListenerBuilder implements RestClientBuilderListener {
 
     @Override
-    public String getBase() {
-        return "demo";
+    public void onNewBuilder(RestClientBuilder builder) {
+        builder.register(LoggingClientRequestFilter.class);
     }
 }
