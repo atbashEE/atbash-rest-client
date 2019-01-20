@@ -1,10 +1,16 @@
 = Atbash MicroProfile rest client
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.5.1, 05/08/2018
+v0.5.2, ??/??/2018
 
 == Release notes
 
 include::release.adi[]
+
+== Important remark
+
+Since RestEasy client also contains an integration of MicroProfile RestClient, applications using the Atbash Rest Client do not work when using the @RegisterRestClient. This is because WildFly 12 and WildFly 13 for example contain this RestEasy version but do not supply the MicroProfile Config as module readable from the RestEasy Module.
+
+This will be addressed in a later version.
 
 == Usage
 

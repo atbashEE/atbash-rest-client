@@ -1,3 +1,7 @@
+=== 0.5.2
+
+. Align with Atbash dependencies
+
 === 0.5.1
 
 . Included _RestClientBuilderListener_ from MP Rest Client 1.1 (to be able to define providers globally)
