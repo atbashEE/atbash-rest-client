@@ -9,13 +9,13 @@ Add the following artefacts to the maven project file to have the Atbash Rest Cl
         <dependency>
             <groupId>be.atbash.mp.rest-client</groupId>
             <artifactId>atbash-rest-client-impl</artifactId>
-            <version>0.5.1</version>
+            <version>0.5.1.1</version>
         </dependency>
 
         <dependency>
             <groupId>be.atbash.config</groupId>
             <artifactId>geronimo-config</artifactId>
-            <version>0.9.2</version>
+            <version>0.9.3</version>
         </dependency>
 
         <dependency>
